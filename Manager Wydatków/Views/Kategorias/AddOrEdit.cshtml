@@ -1,0 +1,39 @@
+﻿@model Manager_Wydatkow.Models.Kategoria
+
+@{
+    ViewData["PageTitle"] = @Model.KategoriaId == 0? "Stwórz nową kategorię": "Zmień kategorię";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="widget p-5">
+            <form asp-action="AddOrEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="KategoriaId" value="@Model.KategoriaId" />
+                <div class="mb-3">
+                    <div class='e-btn-group custom-rbt-group'>
+                        <input type="radio" id="radioleft" name="Typ" value="Wydatek" checked="@(Model.Typ=="Wydatek")" />
+                        <label class="e-btn" for="radioleft">Wydatek</label>
+                        <input type="radio" id="radiomiddle" name="Typ" value="Wpływ" checked="@(Model.Typ=="Wpływ")" />
+                        <label class="e-btn" for="radiomiddle">Wpływ</label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="tytul" placeholder="Tytuł" ejs-for="Tytul" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="Tytul" class="text-danger fs-6"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="ikona" placeholder="Ikona" ejs-for="Ikona" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="Ikona" class="text-danger"></span>
+                </div>
+                <ejs-button id="submit" type="submit" content="Potwierdź" cssClass="e-success"></ejs-button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@*section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@

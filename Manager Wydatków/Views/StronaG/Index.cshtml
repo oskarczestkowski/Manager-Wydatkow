@@ -1,0 +1,119 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["isStronaG"] = true;
+}
+
+@*Podsumowanie*@
+<div class="row mb-4">
+    @*Wplywy*@
+    <div class="col-md-4">
+    <div class="d-flex flex-row widget summary income">
+        <div class="d-flex flex-column justify-content-center p-5">
+            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+        </div>
+        <div class="d-flex flex-column m-auto py-3">
+            <span class="lead">Suma Wpływów</span>
+            <h1 class="display-6 fw-bold">@ViewBag.sumaW</h1>
+        </div> 
+    </div></div>
+    @*Wydatki*@
+    <div class="col-md-4">
+        <div class="d-flex flex-row widget summary expense">
+        <div class="d-flex flex-column justify-content-center p-5">
+            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+        </div>
+        <div class="d-flex flex-column m-auto py-3">
+            <span class="lead">Suma Wydatków</span>
+            <h1 class="display-6 fw-bold">@ViewBag.sumaWw</h1>
+        </div>
+        </div>
+    </div>
+    @*Stan konta*@
+    <div class="col-md-4">
+    <div class="d-flex flex-row widget summary balance">
+        <div class="d-flex flex-column justify-content-center p-5">
+            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+        </div>
+        <div class="d-flex flex-column m-auto py-3">
+            <span class="lead">Stan konta</span>
+            <h1 class="display-6 fw-bold">@ViewBag.stanK</h1>
+        </div>
+    </div>
+    </div>
+</div>
+
+@*Wykresy*@
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="widget chart">
+            <div class="p-4">
+                <h5 class="fw-bold">Kategorie Wydatków</h5>
+            </div>
+            <ejs-accumulationchart id="wykres" background="#1a222b">
+                <e-accumulation-series-collection>
+                    <e-accumulation-series dataSource="@ViewBag.DoughnutChartData"
+                                           xName="kategoriaTytulIkona" yName="cena" innerRadius="60%" legendShape="Circle"
+                                           palettes=@(new string[]{"#0e8d76","#a4b219","#cb9b00","#8a442c","#0454b5","#7d0a0a","#822690","#4c2090","#313e93","#0096ac"})>
+                    <e-accumulationseries-datalabel name="cenaFormat" visible></e-accumulationseries-datalabel>
+                </e-accumulation-series>
+                </e-accumulation-series-collection>
+                <e-accumulationchart-legendsettings position="Top" toggleVisibility="false">
+                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                </e-accumulationchart-legendsettings>
+                <e-accumulationchart-tooltipsettings enable></e-accumulationchart-tooltipsettings>
+            </ejs-accumulationchart>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="widget chart">
+            <div class="p-4">
+                <h5 class="fw-bold">Wpływy i Wydatki</h5>
+            </div>
+            <ejs-chart id="spline-chart" background="#1a222b"
+                       palettes=@(new string[]{"#54ffa9","#f44336"})>
+                <e-chart-primaryxaxis valueType=Category>
+                    <e-majorgridlines width="0"></e-majorgridlines>
+                </e-chart-primaryxaxis>
+                <e-chart-primaryyaxis>
+                    <e-majorgridlines width="1" color="#32414d" dashArray="3,5"></e-majorgridlines>
+                </e-chart-primaryyaxis>
+                <e-chart-chartarea>
+                    <e-chartarea-border width="0" ></e-chartarea-border>
+                </e-chart-chartarea>
+                <e-series-collection>
+                    <e-series dataSource = "@ViewBag.SplineChartData" xName="dzien" width="3"
+                    yName="wplywy" name="Wplywy" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
+                    <e-series dataSource="@ViewBag.SplineChartData" xName="dzien" width="3"
+                    yName="wydatki" name="Wydatki" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
+                </e-series-collection>
+                    <e-chart-legendsettings position="Top" alignment=Far toggleVisibility="false">
+                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                    </e-chart-legendsettings>
+                    <e-chart-tooltipsettings enable shared></e-chart-tooltipsettings>
+            </ejs-chart>
+        </div>
+    </div>
+</div>
+
+@*Najnowsze transakcje*@
+<div class="row">
+    <div class="col-md-6">
+        <div class="widget">
+            <div class="p-4">
+                <h5 class="fw-bold">Najnowsze transakcje</h5>
+            </div>
+            <div class="px-4 pb-4">
+                <ejs-grid id="recent-transactions" dataSource="@ViewBag.NajnowszeTransakcje">
+                    <e-grid-columns>
+                        <e-grid-column headerText="Kategoria" field="KategoriaTytulIkona"></e-grid-column>
+                        <e-grid-column headerText="Data" field="Data" type="date" format="dd-MMM-yy"></e-grid-column>
+                        <e-grid-column headerText="Cena" field="CenaFormat" textAlign=Right></e-grid-column>
+                    </e-grid-columns>
+
+                </ejs-grid>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿@model Manager_Wydatkow.Models.Transakcje
+
+@{
+    ViewData["PageTitle"] = @Model.TransakcjeId == 0 ? "Stwórz nową transakcję" : "Zmień transakcję";
+}
+
+<div class="row">
+    <div class="col-md-7">
+                <div class="widget p-5">
+        <form asp-action="AddOrEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="TransakcjeId" value="@Model.TransakcjeId" />
+                <div class="mb-3">
+                    <ejs-datepicker id="date" ejs-for="Data"
+                    placeholder="Data" floatLabelType="Always"
+                    format="dd-MMM-yyyy"></ejs-datepicker>
+                </div>
+            <div class="mb-3">
+                    <ejs-dropdownlist id="ddlKategoria" ejs-for="KategoriaId"
+                    dataSource="@ViewBag.Categories" placeholder="Kategoria"
+                    floatLabelType="Always" allowFiltering="true" ignoreAccent="true"
+                    filterType="Contains" popupHeight="200px">
+                <e-dropdownlist-fields value="KategoriaId" text="TytulIkona"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+                <span asp-validation-for="KategoriaId" class="text-danger fs-6"></span>
+            </div>
+            <div class="mb-3">
+                <ejs-numerictextbox id="cena" ejs-for="Cena" 
+                placeholder="Cena" floatLabelType="Always"
+                min="0"></ejs-numerictextbox>
+                <span asp-validation-for="Cena" class="text-danger fs-6"></span>
+            </div>
+            <div class="mb-3">
+                <ejs-textbox id="opis" placeholder="Opis" ejs-for="Opis" 
+                floatLabelType="Always" multiline="true"></ejs-textbox>
+            </div>
+            <ejs-button id="submit" type="submit" content="Potwierdź" cssClass="e-success"></ejs-button>
+        </form>
+        </div>
+    </div>
+</div>
+
+
+@*section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@

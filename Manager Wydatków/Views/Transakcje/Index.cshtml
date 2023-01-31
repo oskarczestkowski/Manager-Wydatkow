@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Manager_Wydatkow.Models.Transakcje>
+
+@{
+    ViewData["PageTitle"] = "Transakcje";
+    ViewData["PageActionText"] = "+ Nowa Transakcja";
+    ViewData["PageActionUrl"] = "/Transakcje/AddOrEdit";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <ejs-grid id="transakcje" dataSource="@Model" gridLines="None"
+        allowSorting="true" allowPaging="true">
+            <e-grid-columns>
+                <e-grid-column headerText="Kategoria" field="KategoriaTytulIkona"></e-grid-column>
+                <e-grid-column headerText="Data" field="Data" width="110px"
+                type="date" format="dd-MMM-yy" textAlign=Left></e-grid-column>
+                <e-grid-column headerText="Cena" field="CenaFormat" width="110px"></e-grid-column>
+                <e-grid-column headerText="Akcje" template="#actionColumnTemplate" width="100px"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
+<script id="actionColumnTemplate" type="text/x-template">
+    <div class="d-flex flex-row justify-content-start">
+        <a class="btn btn-sm no-a-decoration" href="/Transakcje/AddOrEdit/${TransakcjeId}">
+            <i class="fa-solid fa-pen fa-lg"></i>
+        </a>
+        <form action="/Transakcje/Delete/${TransakcjeId}" method="post">
+    @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-sm btn-link nono-a-decoration"
+            onclick="return confirm(&quot;Czy na pewno chcesz usunąć ten wiersz?&quot;)">
+                <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
+            </button>
+        </form>
+    </div>
+</script>

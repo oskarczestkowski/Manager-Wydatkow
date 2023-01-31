@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Manager_Wydatkow.Models.Kategoria>
+
+@{
+    ViewData["PageTitle"] = "Kategorie";
+    ViewData["PageActionText"] = "+ Nowa Kategoria";
+    ViewData["PageActionUrl"] = "/Kategorias/AddOrEdit";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <ejs-grid id="kategoria" dataSource="@Model" gridLines="None"
+        allowSorting="true" allowPaging="true">
+            <e-grid-columns>
+                <e-grid-column headerText="Kategoria" field="TytulIkona"></e-grid-column>
+                <e-grid-column headerText="Typ" template="#typColumnTemplate" width="150px"></e-grid-column>
+                <e-grid-column headerText="Akcje" template="#actionColumnTemplate" width="100px"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
+<script id="typColumnTemplate" type="text/x-template">
+    ${if(Typ=="Wpływ")}    
+        <span class="badge bg-success">${Typ}</span>
+    ${else}
+        <span class="badge bg-danger">${Typ}</span>
+    ${/if}
+</script>
+
+<script id="actionColumnTemplate" type="text/x-template">
+    <div class="d-flex flex-row justify-content-start">
+        <a class="btn btn-sm no-a-decoration" href="/Kategorias/AddOrEdit/${KategoriaId}">
+            <i class="fa-solid fa-pen fa-lg"></i>
+        </a>
+        <form action="/Kategorias/Delete/${KategoriaId}" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-sm btn-link nono-a-decoration"
+            onclick="return confirm(&quot;Czy na pewno chcesz usunąć ten wiersz?&quot;)">
+                <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
+            </button>
+        </form>
+    </div>
+</script>

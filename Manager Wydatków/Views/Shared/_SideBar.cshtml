@@ -1,0 +1,77 @@
+﻿@using Manager_Wydatkow.Utilities;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+
+    List<Object> menuItems = new List<Object>();
+
+    menuItems.Add(new
+    {
+        text = "Moje finanse",
+        separator = true
+    });
+
+    menuItems.Add(new
+    {
+        text = "Strona Główna",
+        url = "/",
+        iconCss = "fa-solid fa-box",
+    });
+
+    menuItems.Add(new
+    {
+        text = "Kategorie",
+        url = "/Kategorias",
+        iconCss="fa-solid fa-folder-closed",
+    });
+
+    menuItems.Add(new
+    {
+        text = "Transakcje",
+        url = "/Transakcje",
+        iconCss="fa-solid fa-arrow-right-arrow-left",
+    });
+
+    menuItems.Add(new
+    {
+        text = "Inne",
+        separator = true
+    });
+
+    menuItems.Add(new 
+    {
+        text = "Wyloguj się",
+        url = "/StronaG/Login",
+        iconCss = "fa-sharp fa-solid fa-arrow-right-from-bracket",    
+    });
+
+
+}
+
+
+
+<ejs-sidebar id="sidebar" width="290px" enableDock dockSize="100px">
+    <e-content-template>
+        <div class="dock-wrapper">
+            <div class="dock-icon">
+                <div class="w-100"></div>
+                <i id="sidebar-toggler "class="fa-solid"></i>
+            </div>
+        </div>
+
+        <ejs-menu id="menu" items="menuItems"
+        orientation="Vertical"></ejs-menu>
+    </e-content-template>
+
+</ejs-sidebar>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+        dockBar = document.getElementById('sidebar').ejs_instances[0];
+        document.getElementById('sidebar-toggler').onclick = function () {
+            dockbar.toggle();
+        };
+    });
+</script>
