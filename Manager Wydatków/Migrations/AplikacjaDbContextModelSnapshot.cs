@@ -32,7 +32,7 @@ namespace ManagerWydatkow.Migrations
 
                     b.Property<string>("Ikona")
                         .IsRequired()
-                        .HasColumnType("nvarchar(5)");
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("Typ")
                         .IsRequired()

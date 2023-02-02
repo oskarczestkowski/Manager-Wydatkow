@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Manager_Wydatkow.Models;
 
-public partial class LoginContext : DbContext
+public partial class LoginDbContext : DbContext
 {
-    public LoginContext()
+    public LoginDbContext()
     {
     }
 
-    public LoginContext(DbContextOptions<LoginContext> options)
+    public LoginDbContext(DbContextOptions<LoginDbContext> options)
         : base(options)
     {
     }
@@ -19,20 +19,27 @@ public partial class LoginContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=OSKAR\\sqlexpress;Database=Login;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=OSKAR\\SQLEXPRESS;Database=LoginDB;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasNoKey();
+            entity
+                .HasNoKey()
+                .ToTable("user");
 
-            entity.Property(e => e.UserName)
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
+            entity.Property(e => e.Password)
                 .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.UserPassword)
+                .IsUnicode(false)
+                .HasColumnName("password");
+            entity.Property(e => e.Username)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasColumnName("username");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -7,12 +7,12 @@ namespace Manager_Wydatkow.Utilities
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Session.GetString("UserName") == null)
+            if (filterContext.HttpContext.Session.GetString("Username") == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
                 new RouteValueDictionary {
-                        { "Controller", "StronaG" },
-                        { "Action", "Login" }
+                            { "Controller", "StronaG" },
+                            { "Action", "Login" }
                 });
             }
         }

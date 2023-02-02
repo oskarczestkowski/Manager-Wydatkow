@@ -1,4 +1,4 @@
-﻿@using Manager_Wydatkow.Utilities;
+﻿
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -42,9 +42,10 @@
 
     menuItems.Add(new 
     {
+        id = "wyloguj",
         text = "Wyloguj się",
-        url = "/StronaG/Login",
-        iconCss = "fa-sharp fa-solid fa-arrow-right-from-bracket",    
+        url = "/StronaG/Logout",
+        iconCss = "fa-sharp fa-solid fa-arrow-right-from-bracket",  
     });
 
 
@@ -57,12 +58,13 @@
         <div class="dock-wrapper">
             <div class="dock-icon">
                 <div class="w-100"></div>
-                <i id="sidebar-toggler "class="fa-solid"></i>
+
             </div>
         </div>
 
         <ejs-menu id="menu" items="menuItems"
-        orientation="Vertical"></ejs-menu>
+        orientation="Vertical">
+        </ejs-menu>
     </e-content-template>
 
 </ejs-sidebar>
@@ -74,4 +76,10 @@
             dockbar.toggle();
         };
     });
+</script>
+
+<script>
+    document.getElementById('wyloguj').onclick = function () {
+        Logout();
+    };
 </script>

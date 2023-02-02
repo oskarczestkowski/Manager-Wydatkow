@@ -13,6 +13,7 @@ namespace Manager_Wydatkow.Controllers
             _logger = logger;
         }
 
+
         public IActionResult Index()
         {
             return View();

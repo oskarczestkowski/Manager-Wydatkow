@@ -17,7 +17,7 @@ namespace Manager_Wydatkow.Controllers
         // Get Action
         public IActionResult Login()
         {
-            if (HttpContext.Session.GetString("UserName") == null)
+            if (HttpContext.Session.GetString("Username") == null)
             {
                 return View();
             }
@@ -30,16 +30,16 @@ namespace Manager_Wydatkow.Controllers
         [HttpPost]
         public ActionResult Login(User u)
         {
-            if (HttpContext.Session.GetString("UserName") == null)
+            if (HttpContext.Session.GetString("Username") == null)
             {
                 if (ModelState.IsValid)
                 {
-                    using (LoginContext db = new LoginContext())
+                    using (LoginDbContext db = new())
                     {
-                        var obj = db.Users.Where(a => a.UserName.Equals(u.UserName) && a.UserPassword.Equals(u.UserPassword)).FirstOrDefault();
+                        var obj = db.Users.Where(a => a.Username.Equals(u.Username) && a.Password.Equals(u.Password)).FirstOrDefault();
                         if (obj != null)
                         {
-                            HttpContext.Session.SetString("UserName", obj.UserName.ToString());
+                            HttpContext.Session.SetString("Username", obj.Username.ToString());
                             return RedirectToAction("Index");
                         }
                     }
@@ -47,15 +47,17 @@ namespace Manager_Wydatkow.Controllers
             }
             else
             {
-                return RedirectToAction("StronaG");
+                
+                return RedirectToAction("Login");
             }
+            ViewData["LoginFlag"] = "Zła nazwa użytkownika lub hasło!";
             return View();
         }
-       
+
         public ActionResult Logout()
         {
             HttpContext.Session.Clear();
-            HttpContext.Session.Remove("UserName");
+            HttpContext.Session.Remove("Username");
             return RedirectToAction("Login");
         }
 

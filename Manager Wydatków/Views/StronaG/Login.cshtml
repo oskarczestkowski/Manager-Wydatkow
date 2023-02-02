@@ -1,19 +1,36 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model Manager_Wydatkow.Models.User
+﻿@model Manager_Wydatkow.Models.User
 @{
     Layout = null;
 }
+
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+
+</head>
 <body>
-    @using (Html.BeginForm("Login", "StronaG", FormMethod.Post))
+    <div class="center">
+        <h1>Logowanie</h1>       
+
+        @using (Html.BeginForm("Login", "StronaG", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
-        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", id = "UserName", placeholder = "Username", required = "required", autofocus = "autofocus" })
-        @Html.TextBoxFor(m => m.UserPassword, new { @class = "form-control", type = "password", placeholder = "Password", required = "" })
-    <button type="submit">Sign in</button>
+            <div class="txt_field">
+             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", id = "Username", placeholder = "Username", required = "required", autofocus = "autofocus" })
+            <span></span>
+            </div>
+            <div class="txt_field">
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "Password", placeholder = "Password", required = "" })
+            <span></span>
+            </div>        
+            <div class="alert-danger">
+            @if (ViewData["LoginFlag"] != null)
+            {
+                @ViewData["LoginFlag"]
+            }
+            </div>
+            <button class="login" type="submit">Zaloguj się</button>
     }
+    </div>
+
 </body>
